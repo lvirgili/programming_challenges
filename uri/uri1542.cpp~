@@ -1,0 +1,11 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int Q, D, P;
+    while (cin >> Q, Q != 0) {
+        cin >> D >> Q;
+        cout << (P * D / (P - Q)) << endl;
+        return 0;
+    }
+}
