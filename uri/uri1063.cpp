@@ -1,58 +1,40 @@
 #include <iostream>
-#include <vector>
 #include <stack>
-#include <list>
-#include <algorithm>
 using namespace std;
 
 int main() {
-    int n;
-    while (cin >> n, n != 0) {
-        list<char> in;
-        for (int i = 0; i < n; ++i) {
-            char c; cin >> c;
-            in.push_back(c);
+    int N;
+    while (cin >> N, N != 0) {
+        char in[N];
+        for (int n = N-1; n >= 0; --n) {
+            cin >> in[n];
         }
+        char out[N];
+        for (int n = 0; n < N; ++n) {
+            cin >> out[n];
+        }
+        int top_in = N-1;
         stack<char> station;
         bool imp = false;
-        vector<char> out;
-        for (int i = 0; i < n; ++i) {
-            char ch; cin >> ch;
-            out.push_back(ch);
-        }
-        for (int i = 0; i < n; ++i) {
-            char target = out[i];
-            if (station.size() > 0 && station.top() == target) {
-                cout << "R";
-                station.pop();
-            } else if (in.size() == 0) {
-                if (station.size() > 0 && station.top() == target) {
-                    cout << "R";
-                    station.pop();
-                } else {
+        for (int i = 0; i < N; ++i) {
+            char outc = out[i];
+            while (station.empty() || station.top() != outc) {
+                if (top_in == -1) {
+                    cout << " Impossible";
                     imp = true;
                     break;
-                }
-            } else {
-                if (find(in.begin(), in.end(), target) != in.end()) {
-                    while (in.front() != target) {
-                        cout << "I";
-                        station.push(in.front());
-                        in.pop_front();
-                    }
-                    in.pop_front();
-                    cout << "IR";
                 } else {
-                    imp = true;
-                    break;
+                    cout << "I";
+                    station.push( in[top_in--] );
                 }
             }
+            if (imp) {
+                break;
+            }
+            cout << "R";
+            station.pop();
         }
-        if (imp) {
-            cout << " Impossible\n";
-        } else {
-            cout << endl;
-        }
+        cout << endl;
     }
     return 0;
 }
