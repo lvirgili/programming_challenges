@@ -12,7 +12,7 @@ int mdc(int a, int b) {
       b = resto;
       resto = a % b;
    }
-   return b;  
+   return b;
 }
 
 int main() {
