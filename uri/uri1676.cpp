@@ -1,27 +1,29 @@
 #include <iostream>
-#include <vector>
+#include <list>
 using namespace std;
 
 int main() {
-    const int L = 110;
-    vector<bool> v(L, true);
-    vector<int> luck;
-    for (unsigned i = 2; i <= L-1; i++) {
-        if (v[i]) {
-            luck.push_back(i);
-            int k = i + i;
-            while (k <= L-1) {
-                v[k] = false;
-                k += i;
-            }
+    list<int> l;
+    for (int i = 2; i <= 33850; ++i) {
+        l.push_back(i);
+    }
+    int pos = 0;
+    int v[3000];
+    while (pos < 3000) {
+        v[pos++] = l.front();
+        int i = l.front();
+        int j = 0;
+        for (auto it = l.begin(); it != l.end();) {
+            auto it2 = it; ++it2;
+            if (j % i == 0) l.erase(it);
+            it = it2;
+            ++j;
         }
     }
-    for (unsigned i = 0; i < luck.size(); ++i) {
-        cout << i+1 << ' ' << luck[i] << endl;
-    }
+
     int n;
     while (cin >> n, n) {
-        cout << luck[n-1] << endl;
+        cout << v[n-1] << endl;
     }
     return 0;
 }
