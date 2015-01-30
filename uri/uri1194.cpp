@@ -18,10 +18,15 @@ void print(const char pre[], const char in[], long n) {
 }
 
 int main() {
-    string pre, in;
-    while (cin >> pre >> in) {
+    int c;
+    cin >> c;
+    while (c--) {
+        cin.ignore(256, '\n');
+        int n;
+        string pre, in;
+        cin >> n >> pre >> in;
         print(pre.c_str(), in.c_str(), (long)pre.size());
-        cout <<
+        cout << endl;
     }
     return 0;
 }
