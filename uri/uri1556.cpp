@@ -1,26 +1,28 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include <set>
 using namespace std;
+
+set<string> words;
+
+void gen(string &s) {
+    words.insert(s);
+    for (unsigned i = 0; i < s.size(); ++i) {
+        string ns = s;
+        ns.erase(ns.begin() + i);
+        if (ns.size() && words.count(ns) == 0) {
+            words.insert(ns);
+            gen(ns);
+        }
+    }
+}
 
 int main() {
     string s;
     while (cin >> s) {
-        vector<string> ws;
-        set<string> wsu;
-        for (auto &c : s) {
-            unsigned t = ws.size();
-            for (unsigned i = 0; i < t; ++i) {
-                string n = ws[i] + c;
-                ws.push_back(n);
-                wsu.insert(n);
-            }
-            string a(1, c);
-            ws.push_back(a);
-            wsu.insert(a);
-        }
-        for (auto &w : wsu) cout << w << endl;
+        words.clear();
+        gen(s);
+        for (auto &w : words) cout << w << endl;
         cout << endl;
     }
     return 0;
